@@ -170,92 +170,7 @@
             <p>联系我们: <a href="mailto:1872974@gmail.com">1872974@gmail.com</a></p>
         </footer>
     </div>
-    <script>
-        document.getElementById('chat-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            let message = document.getElementById('message-input').value;
-            if (message.trim() !== '') {
-                addMessage(message);
-                document.getElementById('message-input').value = ''; // 清空输入框
-            }
-        });
-
-        document.getElementById('retract-button').addEventListener('click', function() {
-            retractLastMessage();
-        });
-
-        function loadMessages() {
-            let messages = localStorage.getItem('messages');
-            if (messages) {
-                messages = JSON.parse(messages);
-                messages.forEach(message => {
-                    addMessageToDOM(message);
-                });
-            } else {
-                fetch('messages.txt')
-                    .then(response => response.text())
-                    .then(text => {
-                        let messages = text.trim().split('\n');
-                        messages.forEach(message => {
-                            addMessageToDOM(message);
-                        });
-                        saveMessages(messages);
-                    });
-            }
-        }
-
-        function saveMessages(messages) {
-            localStorage.setItem('messages', JSON.stringify(messages));
-            let blob = new Blob([messages.join('\n')], { type: 'text/plain' });
-            let url = URL.createObjectURL(blob);
-            let a = document.createElement('a');
-            a.href = url;
-            a.download = 'messages.txt';
-            a.click();
-            URL.revokeObjectURL(url);
-        }
-
-        function addMessage(message) {
-            let messages = JSON.parse(localStorage.getItem('messages')) || [];
-            messages.push(message);
-            saveMessages(messages);
-            addMessageToDOM(message);
-        }
-
-        function addMessageToDOM(message) {
-            let messageList = document.getElementById('message-list');
-            let listItem = document.createElement('li');
-            listItem.className = 'message-item';
-            listItem.textContent = message;
-            messageList.appendChild(listItem);
-        }
-
-        function retractLastMessage() {
-            let messages = JSON.parse(localStorage.getItem('messages')) || [];
-            if (messages.length > 0) {
-                messages.pop();
-                saveMessages(messages);
-                let messageList = document.getElementById('message-list');
-                if (messageList.lastChild) {
-                    messageList.removeChild(messageList.lastChild);
-                }
-            }
-        }
-
-        // 加载页面时从本地存储中恢复消息
-        loadMessages();
-    </script>
-        <section id="contact">
-            <h2 class="section-title">联系我们</h2>
-            <p>如果您有任何问题或建议，请通过下面的表单联系我们：</p>
-            <form class="contact-form" action="submit_form.php" method="post">
-                <input type="text" name="name" placeholder="姓名" required>
-                <input type="email" name="email" placeholder="电子邮件" required>
-                <textarea name="message" placeholder="您的留言" rows="5" required></textarea>
-                <button type="submit">提交</button>
-            </form>
-        </section>
-    </main>
+  
     <footer>
         &copy; 2024 国际基督徒交流群. 版权所有.
     </footer>
@@ -268,11 +183,8 @@
           
        
             
-                </div>
-            </div>
-            <div class="testimony-item">
-                <img src="testimony2.jpg" alt="见证2">
-                <div>
+          
+                
   
 </body>
 
